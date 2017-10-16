@@ -16,11 +16,11 @@ class CreateDatosUsuarioTable extends Migration
         Schema::create('datos_usuario', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('id_usuario')->unsigned();
-            $table->string('nombre');
-            $table->string('apellido_paterno');
-            $table->string('apellido_materno');
+            $table->string('nombre')->nullable();
+            $table->string('apellido_paterno')->nullable();
+            $table->string('apellido_materno')->nullable();
             $table->integer('id_tipo_cuenta')->unsigned();
-            $table->boolean('confirmacion_cuenta');
+            $table->boolean('confirmacion_cuenta')->nullable();
             $table->integer('id_estatus')->unsigned();
             $table->timestamps();
             $table->softDeletes();
