@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTipoCuentaTable extends Migration
+class CreatePagoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,16 @@ class CreateTipoCuentaTable extends Migration
      */
     public function up()
     {
-        Schema::create('tipo_cuenta', function (Blueprint $table) {
+        Schema::create('pago', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('tipo');
+            $table->integer('id_usuario')->unsigned();
+            $table->string('numero_tarjeta');
+            $table->integer('id_estatus')->unsigned();
             $table->timestamps();
             $table->softDeletes();
+
+            //Llave foránea
+            $table->foreign('id_estatus')->references('id')->on('estatus');
         });
     }
 
@@ -28,6 +33,6 @@ class CreateTipoCuentaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipo_cuenta');
+        Schema::dropIfExists('pago');
     }
 }
