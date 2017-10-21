@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'failed' => '¡Ops!, Parece que la información no es correcta',
-    'throttle' => 'Demasiados intentos de inicio de sesión. Vuelve a intentarlo en :seconds segundos',
+    'failed' => '¡Ops!, parece que la información es incorrecta',
+    'throttle' => 'Demasiados intentos de inicio de sesión. Vuelva a intentarlo en :seconds segundos.',
 
 ];
