@@ -42,6 +42,21 @@ class LoginController extends Controller
     }
 
     /**
+     * The user has been authenticated.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+    protected function authenticated(Request $request, $user) {
+        $tipoCuenta = $user->datosUsuario->tipoCuenta->tipo;
+
+        if ($tipoCuenta == 'administrador') {
+            $this->redirectTo = '/admin';
+        }
+    }
+
+    /**
      * Create a new controller instance.
      *
      * @return void

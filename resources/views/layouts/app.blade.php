@@ -16,6 +16,8 @@
     <link href="{{ asset('css/general.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ url('bootstrap/css/bootstrap.css') }}">
     <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    @yield('css')
 
     <!-- Scripts -->
     <!--<script src="{{ asset('js/app.js') }}"></script>-->
@@ -42,15 +44,21 @@
                         <li class="nav-item">
                             <a class="nav-link" id="barra-login" href="{{ route('login') }}">Iniciar sesión</a>
                         </li>
-                        <!--<li class="nav-item">
-                            <a class="nav-link" id="barra-registro" href="{{ route('register') }}">Register</a>
-                        </li>-->
                     @else
+                        @auth
+                            <li class="nav-item">
+                                <a href="{{ url('/admin') }}" id="barra-perfil" class="nav-link">Mi perfil</a>
+                            </li>
+                        @else
+                            <li class="nav-item">
+                                <a href="{{ url('/user') }}" id="barra-perfil" class="nav-link">Mi perfil</a>
+                            </li>
+                        @endauth
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
-                                             document.getElementById('logout-form').submit();">
-                                Logout
+                                        document.getElementById('logout-form').submit();">
+                               Cerrar sesión
                             </a>
 
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -63,6 +71,15 @@
         </nav>
 
         @yield('content')
+        <br/>
+        <br/>
+
+        @yield('footer')
     </div>
+    <!-- Scripts -->
+    <!--<script src="{{ asset('js/app.js') }}"></script>-->
+    <script src="{{ url('bootstrap/js/bootstrap.js') }}"></script>
+    <script src="{{ url('bootstrap/js/jquery-3.2.1.js') }}"></script>
+    <script src="{{ url('bootstrap/js/popper.js') }}"></script>
 </body>
 </html>

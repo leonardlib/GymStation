@@ -26,4 +26,21 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    //Relaciones
+    public function datosUsuario() {
+        return $this->hasOne(DatosUsuario::class, 'id_usuario', 'id');
+    }
+
+    public function telefono() {
+        return $this->hasMany(Telefono::class, 'id_usuario', 'id');
+    }
+
+    public function pago() {
+        return $this->hasMany(Pago::class, 'id_usuario', 'id');
+    }
+
+    public function direccion() {
+        return $this->hasMany(Direccion::class, 'id_usuario', 'id');
+    }
 }

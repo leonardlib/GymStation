@@ -48,3 +48,12 @@
         $('#barra-inicio').parent().addClass('active');
     </script>
 @endsection
+
+@section('footer')
+    <br/>
+    <br/>
+    <!--Footer-->
+    <div class="col-md-12 text-center text-white bg-primary" id="footer">
+        <h6>GymStation © 2017</h6>
+    </div>
+@endsection

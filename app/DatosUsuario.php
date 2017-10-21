@@ -23,6 +23,11 @@ class DatosUsuario extends Model {
         'deleted_at'
     ];
 
+    //Scopes
+    public function scopeActivos($query) {
+        return $query->where('id_estatus', 1);
+    }
+
     //Relaciones
     public function usuario() {
         return $this->hasOne(User::class, 'id', 'id_usuario');

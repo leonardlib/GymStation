@@ -33,10 +33,6 @@
     font-family: 'Lobster', cursive;
 }
 
-#app {
-    margin-bottom: 50px;
-}
-
 .div-panel {
     background-color: whitesmoke;
     padding: 10px;
@@ -45,4 +41,13 @@
 
 .help-block {
     color: red;
+}
+
+#footer {
+    height: 50px;
+}
+
+#footer h6 {
+    margin: 0 !important;
+    padding-top: 15px;
 }
