@@ -33,14 +33,14 @@ class User extends Authenticatable
     }
 
     public function telefono() {
-        return $this->hasMany(Telefono::class, 'id_usuario', 'id');
+        return $this->hasOne(Telefono::class, 'id_usuario', 'id');
     }
 
     public function pago() {
-        return $this->hasMany(Pago::class, 'id_usuario', 'id');
+        return $this->hasOne(Pago::class, 'id_usuario', 'id');
     }
 
     public function direccion() {
-        return $this->hasMany(Direccion::class, 'id_usuario', 'id');
+        return $this->hasOne(Direccion::class, 'id_usuario', 'id');
     }
 }

@@ -18,4 +18,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/admin', 'HomeController@admin')->name('admin');
+
+//Rutas administrador
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
+    Route::get('/', 'AdminController@index');
+    Route::post('/registro-usuario/{tipo}', 'AdminController@registrarUsuario');
+    Route::get('/editar-usuario/{id}', 'AdminController@editarUsuario');
+});

@@ -27,15 +27,4 @@ class HomeController extends Controller
     {
         return view('home');
     }
-
-    public function admin() {
-        //Obtener usuarios
-        $usuarios = DatosUsuario::with('usuario')->activos()->get();
-        //Obtener promociones
-        //Obtener profesores
-
-        return view('admin.index', [
-            'usuarios' => $usuarios
-        ]);
-    }
 }

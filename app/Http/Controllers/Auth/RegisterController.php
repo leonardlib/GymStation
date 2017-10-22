@@ -73,8 +73,9 @@ class RegisterController extends Controller
 
         DatosUsuario::create([
             'id_usuario' => $user->id,
-            'id_tipo_cuenta' => 1,
-            'id_estatus' => 2
+            'id_tipo_cuenta' => 2,
+            'confirmacion_cuenta' => false,
+            'id_estatus' => 1
         ]);
 
         Direccion::create([
@@ -83,7 +84,7 @@ class RegisterController extends Controller
 
         Pago::create([
             'id_usuario' => $user->id,
-            'id_estatus' => 2
+            'id_estatus' => 1
         ]);
 
         Telefono::create([

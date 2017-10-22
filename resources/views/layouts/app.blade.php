@@ -21,9 +21,9 @@
 
     <!-- Scripts -->
     <!--<script src="{{ asset('js/app.js') }}"></script>-->
-    <script src="{{ url('bootstrap/js/bootstrap.js') }}"></script>
     <script src="{{ url('bootstrap/js/jquery-3.2.1.js') }}"></script>
     <script src="{{ url('bootstrap/js/popper.js') }}"></script>
+    <script src="{{ url('bootstrap/js/bootstrap.js') }}"></script>
 </head>
 <body>
     <div id="app">
@@ -78,8 +78,8 @@
     </div>
     <!-- Scripts -->
     <!--<script src="{{ asset('js/app.js') }}"></script>-->
-    <script src="{{ url('bootstrap/js/bootstrap.js') }}"></script>
     <script src="{{ url('bootstrap/js/jquery-3.2.1.js') }}"></script>
     <script src="{{ url('bootstrap/js/popper.js') }}"></script>
+    <script src="{{ url('bootstrap/js/bootstrap.js') }}"></script>
 </body>
 </html>
