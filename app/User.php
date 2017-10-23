@@ -2,12 +2,14 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
     use Notifiable;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -29,18 +31,18 @@ class User extends Authenticatable
 
     //Relaciones
     public function datosUsuario() {
-        return $this->hasOne(DatosUsuario::class, 'id_usuario', 'id');
+        return $this->hasOne(DatosUsuario::class, 'id_usuario', 'id')->withTrashed();
     }
 
     public function telefono() {
-        return $this->hasOne(Telefono::class, 'id_usuario', 'id');
+        return $this->hasOne(Telefono::class, 'id_usuario', 'id')->withTrashed();
     }
 
     public function pago() {
-        return $this->hasOne(Pago::class, 'id_usuario', 'id');
+        return $this->hasOne(Pago::class, 'id_usuario', 'id')->withTrashed();
     }
 
     public function direccion() {
-        return $this->hasOne(Direccion::class, 'id_usuario', 'id');
+        return $this->hasOne(Direccion::class, 'id_usuario', 'id')->withTrashed();
     }
 }

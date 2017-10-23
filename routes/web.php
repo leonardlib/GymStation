@@ -22,6 +22,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 //Rutas administrador
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
     Route::get('/', 'AdminController@index');
+
+    //Usuarios
     Route::post('/registro-usuario/{tipo}', 'AdminController@registrarUsuario');
     Route::get('/editar-usuario/{id}', 'AdminController@editarUsuario');
+    Route::post('/guardar-usuario/{id}', 'AdminController@guardarUsuario');
+    Route::get('/eliminar-usuario/{id}', 'AdminController@eliminarUsuario');
+    Route::get('/recuperar-usuario/{id}', 'AdminController@recuperarUsuario');
 });

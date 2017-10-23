@@ -36,7 +36,11 @@
                                         <div class="d-flex w-100 justify-content-between">
                                             <h5 class="mb-1">{{ ($user->nombre) ? $user->nombre : 'Sin nombre' }}</h5>
                                             <small>
-                                                <i class="material-icons">account_circle</i>
+                                                @if($user->trashed())
+                                                    <i class="material-icons text-danger">account_circle</i>
+                                                @else
+                                                    <i class="material-icons text-success">account_circle</i>
+                                                @endif
                                             </small>
                                         </div>
                                         <!--<p class="mb-1"></p>-->

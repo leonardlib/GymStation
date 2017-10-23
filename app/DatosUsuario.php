@@ -3,8 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class DatosUsuario extends Model {
+    use SoftDeletes;
+
     protected $table = 'datos_usuario';
 
     protected $fillable = [
@@ -27,12 +30,13 @@ class DatosUsuario extends Model {
     public function scopeActivos($query) {
         return $query->where('id_estatus', 1)
                      ->where('id_tipo_cuenta', 2)
-                     ->orWhere('id_tipo_cuenta', 3);
+                     ->orWhere('id_tipo_cuenta', 3)
+                     ->withTrashed();
     }
 
     //Relaciones
     public function usuario() {
-        return $this->hasOne(User::class, 'id', 'id_usuario');
+        return $this->hasOne(User::class, 'id', 'id_usuario')->withTrashed();
     }
 
     public function tipoCuenta() {
