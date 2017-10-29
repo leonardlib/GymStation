@@ -24,9 +24,16 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     Route::get('/', 'AdminController@index');
 
     //Usuarios
-    Route::post('/registro-usuario/{tipo}', 'AdminController@registrarUsuario');
+    Route::post('/registro-usuario', 'AdminController@registrarUsuario');
     Route::get('/editar-usuario/{id}', 'AdminController@editarUsuario');
     Route::post('/guardar-usuario/{id}', 'AdminController@guardarUsuario');
     Route::get('/eliminar-usuario/{id}', 'AdminController@eliminarUsuario');
     Route::get('/recuperar-usuario/{id}', 'AdminController@recuperarUsuario');
+
+    //Profesores
+    Route::post('/registro-profesor', 'AdminController@registrarProfesor');
+    Route::get('/editar-profesor/{id}', 'AdminController@editarProfesor');
+    Route::post('/guardar-profesor/{id}', 'AdminController@guardarProfesor');
+    Route::get('/eliminar-profesor/{id}', 'AdminController@eliminarProfesor');
+    Route::get('/recuperar-profesor/{id}', 'AdminController@recuperarProfesor');
 });

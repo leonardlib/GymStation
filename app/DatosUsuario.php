@@ -30,7 +30,12 @@ class DatosUsuario extends Model {
     public function scopeActivos($query) {
         return $query->where('id_estatus', 1)
                      ->where('id_tipo_cuenta', 2)
-                     ->orWhere('id_tipo_cuenta', 3)
+                     ->withTrashed();
+    }
+
+    public function scopeProfesores($query) {
+        return $query->where('id_estatus', 1)
+                     ->where('id_tipo_cuenta', 3)
                      ->withTrashed();
     }
 

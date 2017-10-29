@@ -30,30 +30,21 @@
                             </button>
                             <br/>
                             <br/>
-                            <div class="list-group">
-                                @foreach($usuarios as $key => $user)
-                                    <a href="{{ url('/admin/editar-usuario/' . $user->usuario->id) }}" class="list-group-item list-group-item-action flex-column align-items-start">
-                                        <div class="d-flex w-100 justify-content-between">
-                                            <h5 class="mb-1">{{ ($user->nombre) ? $user->nombre : 'Sin nombre' }}</h5>
-                                            <small>
-                                                @if($user->trashed())
-                                                    <i class="material-icons text-danger">account_circle</i>
-                                                @else
-                                                    <i class="material-icons text-success">account_circle</i>
-                                                @endif
-                                            </small>
-                                        </div>
-                                        <!--<p class="mb-1"></p>-->
-                                        <small>
-                                            Nombre completo: {{ ($user->nombre) ? $user->nombre . ' ' . $user->apellido_paterno . ' ' . $user->apellido_materno : 'Sin nombre' }}
-                                            <br/>
-                                            Correo: {{ $user->usuario->email }}
-                                        </small>
-                                    </a>
-                                @endforeach
-                            </div>
+                            @include('layouts.caratulaUsuario', [
+                                'usuarios' => $usuarios,
+                                'ruta' => 'editar-usuario'
+                            ])
                         </div>
                         <div class="tab-pane fade" id="list-profes" role="tabpanel" aria-labelledby="list-profes-list">
+                            <button type="button" class="btn btn-success" style="cursor: pointer;" data-toggle="modal" data-target="#nuevo-profesor-modal">
+                                <i class="material-icons" style="vertical-align: middle;">add_circle</i> Agregar profesor
+                            </button>
+                            <br/>
+                            <br/>
+                            @include('layouts.caratulaUsuario', [
+                                'usuarios' => $profesores,
+                                'ruta' => 'editar-profesor'
+                            ])
                         </div>
                         <div class="tab-pane fade" id="list-promos" role="tabpanel" aria-labelledby="list-promos-list">
                         </div>
@@ -79,7 +70,7 @@
                     <div class="alert alert-danger fade show" style="display: none;" id="alerta-info" role="alert">
                         ¡Tienes que completar la información!
                     </div>
-                    <form method="POST" action="{{ url('/admin/registro-usuario/' . 2) }}" id="form-nuevo-user">
+                    <form method="POST" action="{{ url('/admin/registro-usuario/') }}" id="form-nuevo-user">
                         {{ csrf_field() }}
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="email">Correo electrónico:</label>
@@ -113,11 +104,61 @@
         </div>
     </div>
 
+    <!-- Modal agregar profesor -->
+    <div class="modal fade" id="nuevo-profesor-modal" tabindex="-1" role="dialog" aria-labelledby="titulo-modal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-primary" id="titulo-modal">Nuevo profesor</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-danger fade show" style="display: none;" id="alerta-info-profe" role="alert">
+                        ¡Tienes que completar la información!
+                    </div>
+                    <form method="POST" action="{{ url('/admin/registro-profesor/') }}" id="form-nuevo-profesor">
+                        {{ csrf_field() }}
+                        <div class="form-group">
+                            <label for="email-profe">Correo electrónico:</label>
+                            <input id="email-profe" type="email" class="form-control" name="email-profe" value="{{ old('email') }}" required autofocus>
+                            @if (session('errorProfe'))
+                                <span class="help-block">
+                                    <strong>{{ session('errorProfe') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                        <div class="form-group">
+                            <label for="password-profe">Contraseña:</label>
+                            <input id="password-profe" type="password" class="form-control" name="password-profe" required>
+                            <span class="help-block" style="display: none;" id="passwords-profe">
+                                <strong>Las contraseñas deben coincidir</strong>
+                            </span>
+                        </div>
+                        <div class="form-group">
+                            <label for="password-confirm-profe">Confirmar contraseña:</label>
+                            <input id="password-confirm-profe" type="password" class="form-control" name="password_confirmation-profe" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" style="cursor: pointer;">Cerrar</button>
+                    <button type="button" id="btn-guardar-nuevo-profe" style="cursor: pointer;" class="btn btn-primary">Registrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script type="text/javascript">
         $('#barra-perfil').parent().addClass('active');
 
         @if ($errors->has('email') || $errors->has('password'))
             $('#nuevo-usuario-modal').modal('show');
+        @endif
+
+        @if ($errors->has('email-profe') || $errors->has('password-profe'))
+            $('#nuevo-profesor-modal').modal('show');
         @endif
         
         $('#btn-guardar-nuevo').on('click', function (evt) {
@@ -130,6 +171,22 @@
             } else {
                 $('#alerta-info').css('display', 'none');
                 $('#form-nuevo-user').submit();
+            }
+        });
+
+        $('#btn-guardar-nuevo-profe').on('click', function (evt) {
+            var email = $('#email-profe').val();
+            var password = $('#password-profe').val();
+            var password_con = $('#password-confirm-profe').val();
+
+            if (email == '' || password == '' || password_con == '') {
+                $('#alerta-info-profe').css('display', 'block');
+            } else if (password != password_con) {
+                $('#passwords-profe').css('display', 'block');
+            } else {
+                $('#alerta-info-profe').css('display', 'none');
+                $('#passwords-profe').css('display', 'none');
+                $('#form-nuevo-profesor').submit();
             }
         });
     </script>
