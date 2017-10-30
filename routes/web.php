@@ -36,4 +36,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     Route::post('/guardar-profesor/{id}', 'AdminController@guardarProfesor');
     Route::get('/eliminar-profesor/{id}', 'AdminController@eliminarProfesor');
     Route::get('/recuperar-profesor/{id}', 'AdminController@recuperarProfesor');
+
+    //Clases
+    Route::post('/registro-clase', 'AdminController@registrarClase');
+    Route::get('/editar-clase/{id}', 'AdminController@editarClase');
+    Route::post('/guardar-clase/{id}', 'AdminController@guardarClase');
+    Route::get('/eliminar-clase/{id}', 'AdminController@eliminarClase');
+    Route::get('/recuperar-clase/{id}', 'AdminController@recuperarClase');
 });
