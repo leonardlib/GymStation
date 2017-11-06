@@ -53,6 +53,8 @@ class LoginController extends Controller
 
         if ($tipoCuenta == 'administrador') {
             $this->redirectTo = '/admin';
+        } else {
+            $this->redirectTo = '/usuario';
         }
     }
 

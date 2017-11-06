@@ -24,23 +24,35 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     Route::get('/', 'AdminController@index');
 
     //Usuarios
-    Route::post('/registro-usuario', 'AdminController@registrarUsuario');
-    Route::get('/editar-usuario/{id}', 'AdminController@editarUsuario');
-    Route::post('/guardar-usuario/{id}', 'AdminController@guardarUsuario');
-    Route::get('/eliminar-usuario/{id}', 'AdminController@eliminarUsuario');
-    Route::get('/recuperar-usuario/{id}', 'AdminController@recuperarUsuario');
+    Route::post('/registro-usuario', 'UsuarioController@registrarUsuario');
+    Route::get('/editar-usuario/{id}', 'UsuarioController@editarUsuario');
+    Route::post('/guardar-usuario/{id}', 'UsuarioController@guardarUsuario');
+    Route::get('/eliminar-usuario/{id}', 'UsuarioController@eliminarUsuario');
+    Route::get('/recuperar-usuario/{id}', 'UsuarioController@recuperarUsuario');
 
     //Profesores
-    Route::post('/registro-profesor', 'AdminController@registrarProfesor');
-    Route::get('/editar-profesor/{id}', 'AdminController@editarProfesor');
-    Route::post('/guardar-profesor/{id}', 'AdminController@guardarProfesor');
-    Route::get('/eliminar-profesor/{id}', 'AdminController@eliminarProfesor');
-    Route::get('/recuperar-profesor/{id}', 'AdminController@recuperarProfesor');
+    Route::post('/registro-profesor', 'ProfesorController@registrarProfesor');
+    Route::get('/editar-profesor/{id}', 'ProfesorController@editarProfesor');
+    Route::post('/guardar-profesor/{id}', 'ProfesorController@guardarProfesor');
+    Route::get('/eliminar-profesor/{id}', 'ProfesorController@eliminarProfesor');
+    Route::get('/recuperar-profesor/{id}', 'ProfesorController@recuperarProfesor');
 
     //Clases
-    Route::post('/registro-clase', 'AdminController@registrarClase');
-    Route::get('/editar-clase/{id}', 'AdminController@editarClase');
-    Route::post('/guardar-clase/{id}', 'AdminController@guardarClase');
-    Route::get('/eliminar-clase/{id}', 'AdminController@eliminarClase');
-    Route::get('/recuperar-clase/{id}', 'AdminController@recuperarClase');
+    Route::post('/registro-clase', 'ClaseController@registrarClase');
+    Route::get('/editar-clase/{id}', 'ClaseController@editarClase');
+    Route::post('/guardar-clase/{id}', 'ClaseController@guardarClase');
+    Route::get('/eliminar-clase/{id}', 'ClaseController@eliminarClase');
+    Route::get('/recuperar-clase/{id}', 'ClaseController@recuperarClase');
+});
+
+//Rutas usuario normal
+Route::group(['prefix' => 'usuario', 'middleware' => 'auth'], function () {
+    Route::get('/', 'UsuarioController@index');
+
+    //Usuarios
+    Route::post('/registro-usuario', 'UsuarioController@registrarUsuario');
+    Route::get('/editar-usuario/{id}', 'UsuarioController@editarUsuario');
+    Route::post('/guardar-usuario/{id}', 'UsuarioController@guardarUsuario');
+    Route::get('/eliminar-usuario/{id}', 'UsuarioController@eliminarUsuario');
+    Route::get('/recuperar-usuario/{id}', 'UsuarioController@recuperarUsuario');
 });

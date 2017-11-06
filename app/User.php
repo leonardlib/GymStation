@@ -45,4 +45,8 @@ class User extends Authenticatable
     public function direccion() {
         return $this->hasOne(Direccion::class, 'id_usuario', 'id')->withTrashed();
     }
+
+    public function clases() {
+        return $this->hasMany(ClaseUsuarioInstructor::class, 'id_usuario_instructor', 'id')->withTrashed();
+    }
 }

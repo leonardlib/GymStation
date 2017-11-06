@@ -40,20 +40,20 @@
                     <li class="nav-item">
                         <a href="{{ url('/') }}" id="barra-inicio" class="nav-link">Inicio</a>
                     </li>
-                    @guest
+                    @if(Auth::guest())
                         <li class="nav-item">
                             <a class="nav-link" id="barra-login" href="{{ route('login') }}">Iniciar sesión</a>
                         </li>
                     @else
-                        @auth
+                        @if(Auth::user()->datosUsuario->tipoCuenta->tipo == 'administrador')
                             <li class="nav-item">
                                 <a href="{{ url('/admin') }}" id="barra-perfil" class="nav-link">Mi perfil</a>
                             </li>
                         @else
                             <li class="nav-item">
-                                <a href="{{ url('/user') }}" id="barra-perfil" class="nav-link">Mi perfil</a>
+                                <a href="{{ url('/usuario') }}" id="barra-perfil" class="nav-link">Mi perfil</a>
                             </li>
-                        @endauth
+                        @endif
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
@@ -65,7 +65,7 @@
                                 {{ csrf_field() }}
                             </form>
                         </li>
-                    @endguest
+                    @endif
                 </ul>
             </div>
         </nav>
