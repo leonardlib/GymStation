@@ -7,6 +7,7 @@ use App\DatosUsuario;
 use App\Direccion;
 use App\Estatus;
 use App\Pago;
+use App\Promocion;
 use App\Telefono;
 use App\TipoCuenta;
 use App\User;
@@ -18,10 +19,11 @@ class AdminController extends Controller {
         //Obtener usuarios
         $usuarios = DatosUsuario::with('usuario')->activos()->get();
         //Obtener promociones
+        $promociones = Promocion::all();
         //Obtener profesores
         $profesores = DatosUsuario::with('usuario')->profesores()->get();
         //Obtener clases
-        $clases = Clase::all();
+        $clases = Clase::todas();
         //Obtener tipos de cuenta
         $tiposCuenta = TipoCuenta::all();
 
@@ -29,6 +31,7 @@ class AdminController extends Controller {
             'usuarios' => $usuarios,
             'profesores' => $profesores,
             'tiposCuenta' => $tiposCuenta,
+            'promociones' => $promociones,
             'clases' => $clases
         ]);
     }

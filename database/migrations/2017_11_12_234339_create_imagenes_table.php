@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ChangeNumeroTarjetaColumnPagoTable extends Migration
+class CreateImagenesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,8 +12,11 @@ class ChangeNumeroTarjetaColumnPagoTable extends Migration
      * @return void
      */
     public function up() {
-        Schema::table('pago', function (Blueprint $table) {
-            $table->string('numero_tarjeta')->nullable()->change();
+        Schema::create('imagenes', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('ruta');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -22,8 +25,7 @@ class ChangeNumeroTarjetaColumnPagoTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
-        //
+    public function down() {
+        Schema::dropIfExists('imagenes');
     }
 }

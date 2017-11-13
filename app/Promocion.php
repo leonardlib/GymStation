@@ -5,16 +5,15 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Clase extends Model {
+class Promocion extends Model {
     use SoftDeletes;
 
-    protected $table = 'clase';
+    protected $table = 'promocion';
 
     protected $fillable = [
         'nombre',
         'detalle',
-        'cupo_actual',
-        'cupo_total',
+        'clave_promocion_unica',
         'fecha_inicio',
         'fecha_fin',
         'hora_inicio',
@@ -28,17 +27,12 @@ class Clase extends Model {
         'deleted_at'
     ];
 
-    //Scope
-    public function scopeTodas($query) {
-        return $query->withTrashed()->get();
-    }
-
     //Relaciones
     public function estatus() {
         return $this->hasOne(Estatus::class, 'id', 'id_estatus');
     }
 
-    public function claseUsuarioInstructor() {
-        return $this->hasMany(ClaseUsuarioInstructor::class, 'id_clase', 'id');
+    public function imagen() {
+        return $this->hasOne(Imagen::class, 'id', 'id_imagen');
     }
 }

@@ -5,13 +5,13 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Estatus extends Model {
+class Imagen extends Model {
     use SoftDeletes;
 
-    protected $table = 'estatus';
+    protected $table = 'imagenes';
 
     protected $fillable = [
-        'estatus'
+        'ruta'
     ];
 
     protected $dates = [

@@ -2,32 +2,45 @@
 
 namespace App\Http\Controllers;
 
-use App\Clase;
-use App\Estatus;
+use App\Imagen;
+use App\Promocion;
 use Illuminate\Http\Request;
 
-class ClaseController extends Controller {
-    /************************************ Funciones de Administrador sobre Clase **************************************/
-    public function registrarClase(Request $request) {
-        $nombre = $request->input('nombre-clase');
-        $detalle = $request->input('detalle-clase');
-        $cupoTotal = $request->input('cupo-total');
-        $fechaInicio = $request->input('fecha-inicio');
-        $fechaFin = $request->input('fecha-fin');
-        $horaInicio = $request->input('hora-inicio');
-        $horaFin = $request->input('hora-fin');
+class PromocionController extends Controller {
+    /************************************ Funciones de Administrador sobre Promoción **************************************/
+    public function registrarPromocion(Request $request) {
+        $nombre = $request->input('nombre-promocion');
+        $detalle = $request->input('detalle-promocion');
+        $claveUnica = $request->input('clave-unica-promocion');
+        $fechaInicio = $request->input('fecha-inicio-promocion');
+        $fechaFin = $request->input('fecha-fin-promocion');
+        $horaInicio = $request->input('hora-inicio-promocion');
+        $horaFin = $request->input('hora-fin-promocion');
+        $imagen = $request->file('imagen-promocion');
 
-        $clase = new Clase();
-        $clase->nombre = $nombre;
-        $clase->detalle = $detalle;
-        $clase->cupo_actual = 0;
-        $clase->cupo_total = $cupoTotal;
-        $clase->fecha_inicio = $fechaInicio;
-        $clase->fecha_fin = $fechaFin;
-        $clase->hora_inicio = $horaInicio;
-        $clase->hora_fin = $horaFin;
-        $clase->id_estatus = 1;
-        $clase->save();
+        $promocion = new Promocion();
+        $promocion->nombre = $nombre;
+        $promocion->detalle = $detalle;
+        $promocion->clave_promocion_unica = 0;
+        $promocion->fecha_inicio = $fechaInicio;
+        $promocion->fecha_fin = $fechaFin;
+        $promocion->hora_inicio = $horaInicio;
+        $promocion->hora_fin = $horaFin;
+        $promocion->id_estatus = 1;
+        $promocion->save();
+
+        //Guardar imagen
+        $ruta = '/promociones/';
+        $nombreImagen = $promocion->id . '-';
+
+        $rutaServidor = ImageController::guardar($imagen, $ruta, $nombreImagen);
+
+        $imagen = new Imagen();
+        $imagen->ruta = $rutaServidor;
+        $imagen->save();
+
+        $promocion->id_imagen = $imagen->id;
+        $promocion->save();
 
         return redirect()->to('/admin');
     }

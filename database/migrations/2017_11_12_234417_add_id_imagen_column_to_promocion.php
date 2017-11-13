@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class DropNumeroTarjetaColumnFromUsers extends Migration
+class AddIdImagenColumnToPromocion extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class DropNumeroTarjetaColumnFromUsers extends Migration
      */
     public function up()
     {
-        Schema::table('pago', function (Blueprint $table) {
-            $table->dropColumn('numero_tarjeta');
+        Schema::table('promocion', function($table) {
+            $table->integer('id_imagen')->unsigned();
         });
     }
 
@@ -25,8 +25,8 @@ class DropNumeroTarjetaColumnFromUsers extends Migration
      */
     public function down()
     {
-        Schema::table('pago', function (Blueprint $table) {
-            $table->string('numero_tarjeta')->nullable()->change();
+        Schema::table('promocion', function($table) {
+            $table->dropColumn('id_imagen');
         });
     }
 }
