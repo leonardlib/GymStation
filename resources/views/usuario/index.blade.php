@@ -35,7 +35,10 @@
                         <!-- Clases de usuario -->
                         <div class="tab-pane fade" id="list-clases" role="tabpanel" aria-labelledby="list-clases-list">
                             <div class="list-group">
-                                <h1>Clases</h1>
+                                @include('layouts.caratulaClasesUsuario', [
+                                    'usuario' => $datosUsuario->usuario,
+                                    'clasesUsuarioInstructor' => $clases
+                                ])
                             </div>
                         </div>
                     </div>

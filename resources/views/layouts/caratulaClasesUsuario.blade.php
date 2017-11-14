@@ -4,5 +4,5 @@
     </div>
     <a href="{{ url('/admin/recuperar-usuario/' . $usuario->id) }}" class="btn btn-primary">Recuperar usuario</a>
 @else
-
+    
 @endif

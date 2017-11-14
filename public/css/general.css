@@ -33,6 +33,14 @@
     font-family: 'Lobster', cursive;
 }
 
+#clases {
+    margin-top: 30px;
+}
+
+#clases h1 {
+    font-family: 'Lobster', cursive;
+}
+
 .div-panel {
     background-color: whitesmoke;
     padding: 10px;

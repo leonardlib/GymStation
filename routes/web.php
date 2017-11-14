@@ -12,7 +12,13 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $promociones = \App\Promocion::activas()->get();
+    $clases = \App\Clase::activas()->get();
+
+    return view('welcome', [
+        'promociones' => $promociones,
+        'clases' => $clases
+    ]);
 });
 
 Auth::routes();

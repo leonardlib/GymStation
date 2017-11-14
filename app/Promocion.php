@@ -32,6 +32,10 @@ class Promocion extends Model {
         return $query->withTrashed()->get();
     }
 
+    public function scopeActivas($query) {
+        return $query->where('id_estatus', 1);
+    }
+
     //Relaciones
     public function estatus() {
         return $this->hasOne(Estatus::class, 'id', 'id_estatus');
