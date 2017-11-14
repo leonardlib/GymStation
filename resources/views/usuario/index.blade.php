@@ -16,8 +16,7 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="list-group" id="list-tab" role="tablist">
-                        <a class="list-group-item list-group-item-action active" id="list-datos-list" data-toggle="tab" href="#list-datos" role="tab" aria-controls="list-datos" aria-selected="true">Mis datos</a>
-                        <a class="list-group-item list-group-item-action" id="list-promos-list" data-toggle="tab" href="#list-promos" role="tab" aria-controls="list-promos" aria-selected="false">Mis Promociones</a>
+                        <a class="list-group-item list-group-item-action active" id="list-datos-list" data-toggle="tab" href="#list-datos" role="tab" aria-controls="list-datos" aria-selected="true">Mis Datos</a>
                         <a class="list-group-item list-group-item-action" id="list-clases-list" data-toggle="tab" href="#list-clases" role="tab" aria-controls="list-clases" aria-selected="false">Mis Clases</a>
                     </div>
                 </div>
@@ -32,10 +31,6 @@
                                     'tipo' => 'usuario'
                                 ])
                             </div>
-                        </div>
-                        <!-- Promociones de usuario -->
-                        <div class="tab-pane fade" id="list-promos" role="tabpanel" aria-labelledby="list-promos-list">
-                            <h1>Promociones</h1>
                         </div>
                         <!-- Clases de usuario -->
                         <div class="tab-pane fade" id="list-clases" role="tabpanel" aria-labelledby="list-clases-list">

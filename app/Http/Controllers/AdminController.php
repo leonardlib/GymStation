@@ -19,7 +19,7 @@ class AdminController extends Controller {
         //Obtener usuarios
         $usuarios = DatosUsuario::with('usuario')->activos()->get();
         //Obtener promociones
-        $promociones = Promocion::all();
+        $promociones = Promocion::todas();
         //Obtener profesores
         $profesores = DatosUsuario::with('usuario')->profesores()->get();
         //Obtener clases

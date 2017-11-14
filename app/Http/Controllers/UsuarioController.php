@@ -15,7 +15,6 @@ class UsuarioController extends Controller {
     public function index() {
         //Obtener usuarios
         $datosUsuario = Auth::user()->datosUsuario;
-        //Obtener promociones
         //Obtener clases
         $clases = Auth::user()->clases;
         //Obtener estatus

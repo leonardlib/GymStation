@@ -39,6 +39,6 @@ class Clase extends Model {
     }
 
     public function claseUsuarioInstructor() {
-        return $this->hasMany(ClaseUsuarioInstructor::class, 'id_clase', 'id');
+        return $this->hasMany(ClaseUsuarioInstructor::class, 'id_clase', 'id')->withTrashed();
     }
 }

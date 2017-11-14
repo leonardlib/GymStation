@@ -27,12 +27,17 @@ class Promocion extends Model {
         'deleted_at'
     ];
 
+    //Scope
+    public function scopeTodas($query) {
+        return $query->withTrashed()->get();
+    }
+
     //Relaciones
     public function estatus() {
         return $this->hasOne(Estatus::class, 'id', 'id_estatus');
     }
 
     public function imagen() {
-        return $this->hasOne(Imagen::class, 'id', 'id_imagen');
+        return $this->hasOne(Imagen::class, 'id', 'id_imagen')->withTrashed();
     }
 }
