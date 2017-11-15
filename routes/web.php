@@ -14,10 +14,12 @@
 Route::get('/', function () {
     $promociones = \App\Promocion::activas()->get();
     $clases = \App\Clase::activas()->get();
+    $usuarios = \App\User::with('datosUsuario')->get();
 
     return view('welcome', [
         'promociones' => $promociones,
-        'clases' => $clases
+        'clases' => $clases,
+        'usuarios' => $usuarios
     ]);
 });
 
@@ -68,4 +70,10 @@ Route::group(['prefix' => 'usuario', 'middleware' => 'auth'], function () {
     Route::post('/guardar-usuario/{id}', 'UsuarioController@guardarUsuario');
     Route::get('/eliminar-usuario/{id}', 'UsuarioController@eliminarUsuario');
     Route::get('/recuperar-usuario/{id}', 'UsuarioController@recuperarUsuario');
+});
+
+//Rutas generales de clase
+Route::group(['prefix' => 'clase', 'middleware' => 'auth'], function () {
+    Route::get('/buscar-usuario', 'ClaseController@buscarUsuario');
+    Route::post('/registrar', 'ClaseController@registrarUsuario');
 });

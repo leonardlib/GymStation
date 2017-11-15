@@ -27,10 +27,21 @@
 
 #promociones {
     margin-top: 30px;
+    padding-top: 10px;
+    padding-bottom: 20px;
 }
 
 #promociones h1 {
     font-family: 'Lobster', cursive;
+}
+
+.tarjeta-promo {
+    margin: 13px;
+}
+
+.tarjeta-promo img {
+    width: 200px;
+    height: 200px;
 }
 
 #clases {

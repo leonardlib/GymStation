@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card col-md-3 tarjeta-promo">
     <img class="card-img-top" src="{{ url($promocion->imagen->ruta) }}" alt="">
     <div class="card-body">
         <h4 class="card-title">{{ $promocion->nombre }}</h4>

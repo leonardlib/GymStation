@@ -23,6 +23,11 @@ class ClaseUsuarioInstructor extends Model {
         'deleted_at'
     ];
 
+    //Funciones
+    public static function generarClaveUnica() {
+        return uniqid();
+    }
+
     //Relaciones
     public function clase() {
         return $this->hasOne(Clase::class, 'id', 'id_clase');

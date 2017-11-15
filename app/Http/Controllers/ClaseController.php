@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Clase;
+use App\ClaseUsuarioInstructor;
 use App\Estatus;
+use App\User;
 use Illuminate\Http\Request;
 
 class ClaseController extends Controller {
@@ -88,5 +90,45 @@ class ClaseController extends Controller {
         }
 
         return redirect()->to('/admin');
+    }
+
+    public function buscarUsuario(Request $request) {
+        $parametro = $request->input('parametro');
+
+        $usuarios = User::with('datosUsuario')
+                        ->where('email', 'like', '%' . $parametro . '%')
+                        ->get();
+
+        return response()->json($usuarios);
+    }
+
+    public function registrarUsuario(Request $request) {
+        $idClase = $request->input('id_clase');
+        $idUsuario = $request->input('id_usuario');
+
+        $claseUsuarioInstructor = ClaseUsuarioInstructor::where('id_clase', $idClase)
+                                                        ->where('id_usuario_instructor', $idUsuario)
+                                                        ->first();
+
+        if (!isset($claseUsuarioInstructor)) {
+            $clave = ClaseUsuarioInstructor::generarClaveUnica();
+
+            $nuevaClaseUsuarioInstructor = new ClaseUsuarioInstructor();
+            $nuevaClaseUsuarioInstructor->id_clase = $idClase;
+            $nuevaClaseUsuarioInstructor->id_usuario_instructor = $idUsuario;
+            $nuevaClaseUsuarioInstructor->clave_asistencia_unica = $clave;
+            $nuevaClaseUsuarioInstructor->pagada = false;
+            $nuevaClaseUsuarioInstructor->save();
+
+            return response()->json(array(
+                'success' => true,
+                'info' => 'registrado'
+            ));
+        } else {
+            return response()->json(array(
+                'success' => false,
+                'info' => 'no registrado'
+            ));
+        }
     }
 }

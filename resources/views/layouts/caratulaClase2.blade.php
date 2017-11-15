@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card col-md-3 tarjeta-promo">
     <div class="card-body">
         <h4 class="card-title">{{ ($clase->nombre) ? $clase->nombre : 'Sin nombre' }}</h4>
         <p class="card-text">
@@ -14,8 +14,12 @@
                 <strong>Termina:</strong> {{ ($clase->fecha_fin) ? date('d/m/Y', strtotime($clase->fecha_fin)) . ' a las ' . $clase->hora_fin : 'Sin asignar' }}
             </small>
         </p>
-        @if(Auth::check())
-            <a href="#" class="btn btn-primary">Registrarme</a>
+        @if(Auth::check() && Auth::user()->datosUsuario->tipoCuenta->id == 1)
+            <button type="button" class="btn btn-primary btn-registrar" data-title="{{ $clase->id }}" style="cursor: pointer;" data-toggle="modal" data-target="#nuevo-usuario-clase">
+                Registrar usuario/profesor
+            </button>
+        @elseif(Auth::check())
+            <a href="#" class="btn btn-primary" data-title="{{ $clase->id }}">Registrarme</a>
         @endif
     </div>
 </div>
