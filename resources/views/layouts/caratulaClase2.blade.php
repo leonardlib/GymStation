@@ -7,7 +7,7 @@
                 <br/>
                 Cupo: <span id="cupo-clase-{{ $clase->id }}">{{ (($clase->cupo_actual) ? $clase->cupo_actual : '0') . '/' . (($clase->cupo_total) ? $clase->cupo_total : '0') }}</span>
                 <br/>
-                Costo: $ {{ ($clase->costo) ? $clase->costo : 'Sin asignar' }}
+                Costo de la clase: $ {{ ($clase->costo) ? $clase->costo : 'Sin asignar' }}
                 <br/>
             </small>
             <small class="text-right">

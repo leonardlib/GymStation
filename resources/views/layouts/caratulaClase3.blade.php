@@ -1,4 +1,4 @@
-<a class="list-group-item list-group-item-action flex-column align-items-start">
+<a class="list-group-item list-group-item-action flex-column align-items-start" @if(!$detalles['1']) href="{{ url('/clase/pagar/' . $clase->id) }}" @endif>
     <div class="d-flex w-100 justify-content-between">
         <h5 class="mb-1">{{ ($clase->nombre) ? $clase->nombre : 'Sin nombre' }}</h5>
         <small class="text-right">
@@ -12,9 +12,15 @@
         <br/>
         Cupo: {{ (($clase->cupo_actual) ? $clase->cupo_actual : '0') . '/' . (($clase->cupo_total) ? $clase->cupo_total : '0') }}
         <br/>
-        Costo: $ {{ ($clase->costo) ? $clase->costo : 'Sin asignar' }}
+        Costo de la clase: $ {{ ($clase->costo) ? $clase->costo : 'Sin asignar' }}
         <br/>
-        {{ $detalles }}
+        {{ $detalles['0'] }}
+        <br/>
+        @if($detalles['1'])
+            <span class="text-success">Clase pagada</span>
+        @elseif(!$detalles['1'])
+            <span class="text-danger">Aún no has pagado esta clase</span>
+        @endif
         <br/>
         <br/>
         @if($clase->trashed())

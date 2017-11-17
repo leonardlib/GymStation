@@ -76,6 +76,7 @@ Route::group(['prefix' => 'usuario', 'middleware' => 'auth'], function () {
 Route::group(['prefix' => 'clase', 'middleware' => 'auth'], function () {
     Route::get('/buscar-usuario', 'ClaseController@buscarUsuario');
     Route::post('/registrar', 'ClaseController@registrarUsuario');
+    Route::get('/pagar/{idClase}', 'ClaseController@pagar');
 });
 
 //Rutas generales de promoción

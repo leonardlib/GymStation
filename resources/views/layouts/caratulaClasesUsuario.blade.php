@@ -8,14 +8,20 @@
         @foreach($clasesUsuarioInstructor as $key => $clase)
             @include('layouts.caratulaClase3', [
                 'clase' => $clase->clase,
-                'detalles' => 'Pago por clase: $ ' . $clase->clase->pago_profesor
+                'detalles' => [
+                    '0' => 'Pago por clase: $ ' . $clase->clase->pago_profesor,
+                    '1' => ''
+                ]
             ])
         @endforeach
     @else
         @foreach($clasesUsuarioInstructor as $key => $clase)
             @include('layouts.caratulaClase3', [
                 'clase' => $clase->clase,
-                'detalles' => 'Mi clave de asistencia única: ' . $clase->clave_asistencia_unica
+                'detalles' => [
+                    '0' => ($clase->pagada) ? 'Mi clave de asistencia única: ' . $clase->clave_asistencia_unica : '',
+                    '1' => $clase->pagada
+                ]
             ])
         @endforeach
     @endif

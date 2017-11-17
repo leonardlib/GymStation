@@ -7,6 +7,7 @@ use App\ClaseUsuarioInstructor;
 use App\Estatus;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ClaseController extends Controller {
     /************************************ Funciones de Administrador sobre Clase **************************************/
@@ -142,5 +143,18 @@ class ClaseController extends Controller {
                 'success' => false
             ));
         }
+    }
+
+    public function pagar($idClase) {
+        $idUsuario = Auth::user()->id;
+
+        $claseUsuarioInstructor = ClaseUsuarioInstructor::where('id_usuario_instructor', $idUsuario)
+                                                        ->where('id_clase', $idClase)
+                                                        ->first();
+
+        $claseUsuarioInstructor->pagada = true;
+        $claseUsuarioInstructor->save();
+
+        return redirect()->to('/usuario');
     }
 }
