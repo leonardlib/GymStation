@@ -77,6 +77,34 @@
                 });
             }
         });
+
+        //Obtener código de promociones
+        $('.obtener-codigo').on('click', function (evt) {
+            evt.stopPropagation();
+            evt.preventDefault();
+
+            var id_promocion = $(this).data('title');
+
+            $.ajax({
+                url: $('#url').val() + '/promocion/enviar',
+                data: {
+                    'id_promocion': id_promocion
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: 'POST',
+                dataType: 'JSON',
+                error: function (xhr) {
+                    console.log(xhr);
+                },
+                success: function (response) {
+                    if (response.success) {
+                        alert('Te hemos enviado un correo con la información de la promoción');
+                    }
+                }
+            });
+        });
     </script>
 @endsection
 

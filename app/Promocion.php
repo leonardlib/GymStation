@@ -2,8 +2,10 @@
 
 namespace App;
 
+use App\Mail\enviarPromocion;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Mail;
 
 class Promocion extends Model {
     use SoftDeletes;
@@ -34,6 +36,11 @@ class Promocion extends Model {
 
     public function scopeActivas($query) {
         return $query->where('id_estatus', 1);
+    }
+
+    //Enviar email
+    public function enviarEmailPromocion($email) {
+        Mail::to($email)->send(new enviarPromocion($this));
     }
 
     //Relaciones

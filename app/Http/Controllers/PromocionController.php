@@ -6,6 +6,7 @@ use App\Imagen;
 use App\Promocion;
 use App\Estatus;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PromocionController extends Controller {
     /************************************ Funciones de Administrador sobre Promoción **************************************/
@@ -115,5 +116,17 @@ class PromocionController extends Controller {
         $imagen->restore();
 
         return redirect()->to('/admin');
+    }
+
+    public function enviarCorreo(Request $request) {
+        $idPromocion = $request->input('id_promocion');
+        $promocion = Promocion::find($idPromocion);
+        $email = Auth::user()->email;
+
+        $promocion->enviarEmailPromocion($email);
+
+        return response()->json([
+            'success' => true
+        ]);
     }
 }
