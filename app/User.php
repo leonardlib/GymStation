@@ -47,6 +47,6 @@ class User extends Authenticatable
     }
 
     public function clases() {
-        return $this->hasMany(ClaseUsuarioInstructor::class, 'id_usuario_instructor', 'id')->withTrashed();
+        return $this->hasMany(ClaseUsuarioInstructor::class, 'id_usuario_instructor', 'id')->withTrashed()->with('clase');
     }
 }

@@ -35,10 +35,15 @@
                         <!-- Clases de usuario -->
                         <div class="tab-pane fade" id="list-clases" role="tabpanel" aria-labelledby="list-clases-list">
                             <div class="list-group">
-                                @include('layouts.caratulaClasesUsuario', [
-                                    'usuario' => $datosUsuario->usuario,
-                                    'clasesUsuarioInstructor' => $clases
-                                ])
+                                @if(count($clases) > 0)
+                                    @include('layouts.caratulaClasesUsuario', [
+                                        'usuario' => $datosUsuario->usuario,
+                                        'clasesUsuarioInstructor' => $clases,
+                                        'tipo' => Auth::user()->datosUsuario->tipoCuenta->tipo
+                                    ])
+                                @else
+                                    <h5 class="text-primary">No estás registrado en ninguna clase</h5>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -46,6 +51,8 @@
             </div>
         </div>
     </div>
+    <br/>
+    <br/>
 
     <script type="text/javascript">
         $('#barra-perfil').parent().addClass('active');

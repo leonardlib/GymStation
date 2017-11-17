@@ -4,5 +4,19 @@
     </div>
     <a href="{{ url('/admin/recuperar-usuario/' . $usuario->id) }}" class="btn btn-primary">Recuperar usuario</a>
 @else
-    
+    @if($tipo == 'profesor')
+        @foreach($clasesUsuarioInstructor as $key => $clase)
+            @include('layouts.caratulaClase3', [
+                'clase' => $clase->clase,
+                'detalles' => 'Pago por clase: $ ' . $clase->clase->pago_profesor
+            ])
+        @endforeach
+    @else
+        @foreach($clasesUsuarioInstructor as $key => $clase)
+            @include('layouts.caratulaClase3', [
+                'clase' => $clase->clase,
+                'detalles' => 'Mi clave de asistencia única: ' . $clase->clave_asistencia_unica
+            ])
+        @endforeach
+    @endif
 @endif

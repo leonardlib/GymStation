@@ -146,12 +146,15 @@
             var nombre = $('#nombre-clase').val();
             var detalles = $('#detalle-clase').val();
             var cupo_total = $('#cupo-total').val();
+            var costo = $('#costo').val();
+            var pago_profesor = $('#pago-profesor').val();
             var fecha_ini = $('#fecha-inicio').val();
             var fecha_fin = $('#fecha-fin').val();
             var hora_ini = $('#hora-inicio').val();
             var hora_fin = $('#hora-fin').val();
 
-            if (nombre == '' || detalles == '' || cupo_total == '' || fecha_ini == '' || fecha_fin == '' || hora_ini == '' || hora_fin == '') {
+            if (nombre == '' || detalles == '' || cupo_total == '' || fecha_ini == '' || fecha_fin == ''
+                || hora_ini == '' || hora_fin == '' || costo == '' || pago_profesor == '') {
                 $('#alerta-info-clase').css('display', 'block');
             } else {
                 $('#alerta-info-clase').css('display', 'none');

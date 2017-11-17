@@ -5,8 +5,9 @@
             <small>
                 Detalles: {{ ($clase->detalle) ? $clase->detalle : 'Sin detalles' }}
                 <br/>
-                Cupo: {{ (($clase->cupo_actual) ? $clase->cupo_actual : '0') . '/' . (($clase->cupo_total) ? $clase->cupo_total : '0') }}
+                Cupo: <span id="cupo-clase-{{ $clase->id }}">{{ (($clase->cupo_actual) ? $clase->cupo_actual : '0') . '/' . (($clase->cupo_total) ? $clase->cupo_total : '0') }}</span>
                 <br/>
+                Costo: $ {{ ($clase->costo) ? $clase->costo : 'Sin asignar' }}
                 <br/>
             </small>
             <small class="text-right">
@@ -19,7 +20,9 @@
                 Registrar usuario/profesor
             </button>
         @elseif(Auth::check())
-            <a href="#" class="btn btn-primary" data-title="{{ $clase->id }}">Registrarme</a>
+            <button type="button" class="btn btn-primary btn-registrarme" data-title="{{ $clase->id }}" style="cursor: pointer;">
+                Registrarme
+            </button>
         @endif
     </div>
 </div>

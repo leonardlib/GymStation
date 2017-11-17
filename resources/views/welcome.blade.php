@@ -7,6 +7,7 @@
     </div>
     @if(Auth::check())
         <div class="col-md-12" id="clases">
+            <input type="hidden" id="id-usuario-actual" name="id-usuario-actual" value="{{ Auth::user()->id }}">
             <div class="col-md-4 offset-md-4 text-primary text-center">
                 <h1>Clases</h1>
             </div>
@@ -39,7 +40,42 @@
 
         $('.btn-registrar').on('click', function (evt) {
             var id_clase = $(this).data('title');
+
             $('#id-clase').val(id_clase);
+        });
+
+        $('.btn-registrarme').on('click', function (evt) {
+            var id_clase = $(this).data('title');
+            var id_usuario = Number($('#id-usuario-actual').val());
+
+            $('#id-clase').val(id_clase);
+            $('#id-usuario').val(id_usuario);
+
+            if (id_usuario != '' || id_clase != '') {
+                $.ajax({
+                    url: $('#url').val() + '/clase/registrar',
+                    data: {
+                        'id_clase': id_clase,
+                        'id_usuario': id_usuario
+                    },
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: 'POST',
+                    dataType: 'JSON',
+                    error: function (xhr) {
+                        console.log(xhr);
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            alert('Has sido registrado en la clase. Verifíca tu correo para más información.')
+                            $('#cupo-clase-' + id_clase).html(response.cupo_actual + '/' + response.cupo_total);
+                        } else {
+                            alert('¡Ops!, no pudimos registrarte en esta clase, puede que el cupo este lleno o que ya estés registrado.');
+                        }
+                    }
+                });
+            }
         });
     </script>
 @endsection

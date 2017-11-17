@@ -14,6 +14,8 @@ class ClaseController extends Controller {
         $nombre = $request->input('nombre-clase');
         $detalle = $request->input('detalle-clase');
         $cupoTotal = $request->input('cupo-total');
+        $costo = $request->input('costo');
+        $pagoProfesor = $request->input('pago-profesor');
         $fechaInicio = $request->input('fecha-inicio');
         $fechaFin = $request->input('fecha-fin');
         $horaInicio = $request->input('hora-inicio');
@@ -24,6 +26,8 @@ class ClaseController extends Controller {
         $clase->detalle = $detalle;
         $clase->cupo_actual = 0;
         $clase->cupo_total = $cupoTotal;
+        $clase->costo = $costo;
+        $clase->pago_profesor = $pagoProfesor;
         $clase->fecha_inicio = $fechaInicio;
         $clase->fecha_fin = $fechaFin;
         $clase->hora_inicio = $horaInicio;
@@ -48,6 +52,8 @@ class ClaseController extends Controller {
         $nombre = $request->input('nombre-clase');
         $detalle = $request->input('detalle-clase');
         $cupoTotal = $request->input('cupo-total');
+        $costo = $request->input('costo');
+        $pagoProfesor = $request->input('pago-profesor');
         $fechaInicio = $request->input('fecha-inicio');
         $fechaFin = $request->input('fecha-fin');
         $horaInicio = $request->input('hora-inicio');
@@ -58,6 +64,8 @@ class ClaseController extends Controller {
         $clase->nombre = $nombre;
         $clase->detalle = $detalle;
         $clase->cupo_total = $cupoTotal;
+        $clase->costo = $costo;
+        $clase->pago_profesor = $pagoProfesor;
         $clase->fecha_inicio = $fechaInicio;
         $clase->fecha_fin = $fechaFin;
         $clase->hora_inicio = $horaInicio;
@@ -105,12 +113,13 @@ class ClaseController extends Controller {
     public function registrarUsuario(Request $request) {
         $idClase = $request->input('id_clase');
         $idUsuario = $request->input('id_usuario');
+        $clase = Clase::find($idClase);
 
         $claseUsuarioInstructor = ClaseUsuarioInstructor::where('id_clase', $idClase)
                                                         ->where('id_usuario_instructor', $idUsuario)
                                                         ->first();
 
-        if (!isset($claseUsuarioInstructor)) {
+        if (!isset($claseUsuarioInstructor) && $clase->cupo_actual < ($clase->cupo_total + 1)) {
             $clave = ClaseUsuarioInstructor::generarClaveUnica();
 
             $nuevaClaseUsuarioInstructor = new ClaseUsuarioInstructor();
@@ -120,14 +129,17 @@ class ClaseController extends Controller {
             $nuevaClaseUsuarioInstructor->pagada = false;
             $nuevaClaseUsuarioInstructor->save();
 
+            $clase->cupo_actual++;
+            $clase->save();
+
             return response()->json(array(
                 'success' => true,
-                'info' => 'registrado'
+                'cupo_actual' => $clase->cupo_actual,
+                'cupo_total' => $clase->cupo_total
             ));
         } else {
             return response()->json(array(
-                'success' => false,
-                'info' => 'no registrado'
+                'success' => false
             ));
         }
     }

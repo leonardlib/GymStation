@@ -15,12 +15,12 @@
                 </div>
                 <div class="col-md-12">
                     <div class="alert alert-success fade show" style="display: none;" id="alerta-info-clase-usuario-registro" role="alert">
-                        ¡El usuario/profesor ha sido registrado!
+                        ¡El usuario ha sido registrado en la clase correctamente!
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="alert alert-danger fade show" style="display: none;" id="alerta-info-clase-registro" role="alert">
-                        ¡Ops!, parece que este usuario/profesor ya está registrado en esta clase.
+                        ¡Ops!, puede ser que el usuario/profesor ya esté registrado o el cupo de la clase esté lleno.
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -126,6 +126,7 @@
                     success: function (response) {
                         if (response.success) {
                             $('#alerta-info-clase-usuario-registro').css('display', 'block');
+                            $('#cupo-clase-' + id_clase).html(response.cupo_actual + '/' + response.cupo_total);
                         } else {
                             $('#alerta-info-clase-registro').css('display', 'block');
                         }

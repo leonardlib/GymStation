@@ -23,6 +23,16 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
+                                <label for="costo">Costo:</label>
+                                $ <input type="number" min="0" step="1" id="costo" name="costo" class="form-control" value="{{ $clase->costo }}" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="pago-profesor">Pago para el profesor:</label>
+                                $ <input type="number" min="0" step="1" id="pago-profesor" name="pago-profesor" value="{{ $clase->pago_profesor }}" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
                                 <label for="cupo-total">Cupo total:</label>
                                 <input type="number" min="0" step="1" id="cupo-total" name="cupo-total" value="{{ $clase->cupo_total }}" class="form-control" required>
                             </div>
