@@ -69,9 +69,13 @@
                     var html = '';
 
                     $.each(response, function (index, usuario) {
-                        html += '<a id="user-lista-'+ usuario.id +'" data-title="'+ usuario.id +'" class="list-group-item lista-completa list-group-item-action" style="cursor: pointer;">' +
-                                usuario.datos_usuario.nombre + ' ' + usuario.datos_usuario.apellido_paterno + ' ' + usuario.datos_usuario.apellido_materno +
-                                ' - (' + usuario.email + ')' +
+                        var nombre = (usuario.datos_usuario.nombre && usuario.datos_usuario.apellido_paterno &&
+                            usuario.datos_usuario.apellido_materno) ? (usuario.datos_usuario.nombre + ' ' +
+                            usuario.datos_usuario.apellido_paterno + ' ' + usuario.datos_usuario.apellido_materno) : 'Sin nombre';
+
+                        html += '<a id="user-lista-'+ usuario.id +'" data-title="'+ usuario.id +'" ' +
+                                'class="list-group-item lista-completa list-group-item-action" style="cursor: pointer;">' +
+                                    nombre + ' - (' + usuario.email + ')' +
                                 '</a>';
                     });
 

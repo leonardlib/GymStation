@@ -8,6 +8,8 @@ use App\Pago;
 use App\Telefono;
 use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -31,7 +33,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/usuario';
 
     /**
      * Create a new controller instance.
@@ -56,6 +58,23 @@ class RegisterController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
+    }
+
+    /**
+     * The user has been registered.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+    protected function registered(Request $request, $user) {
+        //Enviar email
+        $user->enviarCorreoConfirmacion();
+
+        //Cerrar sesión para bloquear hasta que confirme su cuenta
+        Auth::logout();
+
+        session(['registrado' => 'Te hemos enviado un correo de confirmación']);
     }
 
     /**

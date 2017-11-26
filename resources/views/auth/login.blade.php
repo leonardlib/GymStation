@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+    @if(session('registrado'))
+        <h1>{{ session('registrado') }}</h1>
+    @endif
     <div class="container">
         <div class="row">
             <div class="col-md-8 offset-md-2 div-panel" id="div-login">
