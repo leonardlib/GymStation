@@ -6,10 +6,11 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\Auth;
 
 class enviarPromocion extends Mailable {
     use Queueable, SerializesModels;
-    public $promocion;
+    public $promocion, $usuario;
 
     /**
      * Create a new message instance.
@@ -18,6 +19,7 @@ class enviarPromocion extends Mailable {
      */
     public function __construct($promocion) {
         $this->promocion = $promocion;
+        $this->usuario = Auth::user();
     }
 
     /**

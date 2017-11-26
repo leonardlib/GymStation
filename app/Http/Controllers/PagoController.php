@@ -19,8 +19,8 @@ class PagoController extends Controller {
         );
 
         $this->_apiContext->setConfig(array(
-            'mode' => 'sandbox',
-            'service.EndPoint' => 'https://api.sandbox.paypal.com',
+            'mode' => 'live',
+            'service.EndPoint' => 'https://api.paypal.com',
             'http.ConnectionTimeOut' => 30,
             'log.LogEnabled' => true,
             'log.FileName' => storage_path('logs/paypal.log'),

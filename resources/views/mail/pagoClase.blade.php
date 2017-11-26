@@ -77,7 +77,7 @@
                                 <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                     <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;" valign="top">
                                         Gracias por inscribirte a la clase "{{ $clase->clase->nombre }}", esta es la clave de asistencia
-                                        que deberas presentar en el gimnasio para poder ingresar a la clase:
+                                        que deberás presentar en el gimnasio para poder ingresar a la clase:
                                     </td>
                                 </tr>
                                 <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">

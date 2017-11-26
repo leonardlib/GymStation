@@ -35,7 +35,7 @@ class Promocion extends Model {
     }
 
     public function scopeActivas($query) {
-        return $query->where('id_estatus', 1);
+        return $query->where('id_estatus', 1)->where('fecha_fin', '>=', date('Y-m-d', strtotime(now())));
     }
 
     //Enviar email
