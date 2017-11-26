@@ -50,11 +50,19 @@ class LoginController extends Controller
      */
     protected function authenticated(Request $request, $user) {
         $tipoCuenta = $user->datosUsuario->tipoCuenta->tipo;
+        $confirmado = $user->datosUsuario->confirmacion_cuenta;
 
-        if ($tipoCuenta == 'administrador') {
-            $this->redirectTo = '/admin';
+        if ($confirmado) {
+            if ($tipoCuenta == 'administrador') {
+                $this->redirectTo = '/admin';
+            } else {
+                $this->redirectTo = '/usuario';
+            }
         } else {
-            $this->redirectTo = '/usuario';
+            Auth::logout();
+            session(['confirmado' => 'Debes confirmar tu cuenta mediante tu correo para poder iniciar sesión.']);
+
+            $this->redirectTo = '/login';
         }
     }
 

@@ -144,17 +144,4 @@ class ClaseController extends Controller {
             ));
         }
     }
-
-    public function pagar($idClase) {
-        $idUsuario = Auth::user()->id;
-
-        $claseUsuarioInstructor = ClaseUsuarioInstructor::where('id_usuario_instructor', $idUsuario)
-                                                        ->where('id_clase', $idClase)
-                                                        ->first();
-
-        $claseUsuarioInstructor->pagada = true;
-        $claseUsuarioInstructor->save();
-
-        return redirect()->to('/usuario');
-    }
 }

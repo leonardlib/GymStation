@@ -171,4 +171,16 @@ class UsuarioController extends Controller {
 
         return redirect()->to('/admin/editar-usuario/' . $usuario->id);
     }
+
+    public function confirmarUsuario($idUsuario) {
+        $usuario = User::withTrashed()->find($idUsuario);
+        $datosUsuario = $usuario->datosUsuario;
+
+        $datosUsuario->confirmacion_cuenta = true;
+        $datosUsuario->save();
+        session()->forget('confirmado');
+        session()->forget('registrado');
+
+        return redirect()->to('/usuario');
+    }
 }

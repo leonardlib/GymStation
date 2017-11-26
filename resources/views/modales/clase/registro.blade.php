@@ -69,14 +69,16 @@
                     var html = '';
 
                     $.each(response, function (index, usuario) {
-                        var nombre = (usuario.datos_usuario.nombre && usuario.datos_usuario.apellido_paterno &&
-                            usuario.datos_usuario.apellido_materno) ? (usuario.datos_usuario.nombre + ' ' +
-                            usuario.datos_usuario.apellido_paterno + ' ' + usuario.datos_usuario.apellido_materno) : 'Sin nombre';
+                        if (usuario.datos_usuario.id_tipo_cuenta != 1) {
+                            var nombre = (usuario.datos_usuario.nombre && usuario.datos_usuario.apellido_paterno &&
+                                usuario.datos_usuario.apellido_materno) ? (usuario.datos_usuario.nombre + ' ' +
+                                usuario.datos_usuario.apellido_paterno + ' ' + usuario.datos_usuario.apellido_materno) : 'Sin nombre';
 
-                        html += '<a id="user-lista-'+ usuario.id +'" data-title="'+ usuario.id +'" ' +
+                            html += '<a id="user-lista-' + usuario.id + '" data-title="' + usuario.id + '" ' +
                                 'class="list-group-item lista-completa list-group-item-action" style="cursor: pointer;">' +
-                                    nombre + ' - (' + usuario.email + ')' +
+                                nombre + ' - (' + usuario.email + ')' +
                                 '</a>';
+                        }
                     });
 
                     $('#lista-usuarios').html(html);

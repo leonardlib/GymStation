@@ -2,8 +2,10 @@
 
 namespace App;
 
+use App\Mail\PagoClase;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Mail;
 
 class ClaseUsuarioInstructor extends Model {
     use SoftDeletes;
@@ -22,6 +24,11 @@ class ClaseUsuarioInstructor extends Model {
         'updated_at',
         'deleted_at'
     ];
+
+    //Email pago
+    public function enviarEmailPagoClase($email) {
+        Mail::to($email)->send(new PagoClase($this));
+    }
 
     //Funciones
     public static function generarClaveUnica() {

@@ -1,11 +1,20 @@
 @extends('layouts.app')
 
 @section('content')
-    @if(session('registrado'))
-        <h1>{{ session('registrado') }}</h1>
-    @endif
     <div class="container">
         <div class="row">
+            <div class="col-md-8 offset-md-2 text-center">
+                @if(session('registrado'))
+                    <div class="alert alert-success fade show" id="alerta-registrado" role="alert">
+                        {{ session('registrado') }}
+                    </div>
+                @endif
+                @if(session('confirmado'))
+                    <div class="alert alert-success fade show" id="alerta-registrado" role="alert">
+                        {{ session('confirmado') }}
+                    </div>
+                @endif
+            </div>
             <div class="col-md-8 offset-md-2 div-panel" id="div-login">
                 <form method="POST" action="{{ route('login') }}">
                     {{ csrf_field() }}

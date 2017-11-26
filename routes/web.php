@@ -26,6 +26,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/usuario/confirmar/{id}', 'UsuarioController@confirmarUsuario');
 
 //Rutas administrador
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
@@ -76,7 +77,9 @@ Route::group(['prefix' => 'usuario', 'middleware' => 'auth'], function () {
 Route::group(['prefix' => 'clase', 'middleware' => 'auth'], function () {
     Route::get('/buscar-usuario', 'ClaseController@buscarUsuario');
     Route::post('/registrar', 'ClaseController@registrarUsuario');
-    Route::get('/pagar/{idClase}', 'ClaseController@pagar');
+    Route::get('/pagar/{idClase}', 'PagoController@generarPago');
+    Route::get('/pago-completo', 'PagoController@completo');
+    Route::get('/pago-cancelado', 'PagoController@cancelar');
 });
 
 //Rutas generales de promoción
