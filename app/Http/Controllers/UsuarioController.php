@@ -62,6 +62,8 @@ class UsuarioController extends Controller {
             'id_usuario' => $user->id
         ]);
 
+        $user->enviarCorreoConfirmacion();
+
         return redirect()->to('/admin');
     }
 

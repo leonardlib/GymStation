@@ -19,25 +19,33 @@ class ProfesorController extends Controller {
             $user = new User();
 
             $user->email = $email;
-            $user->password = bcrypt($request->input('password-profe'));
-            $user->save();
+            $password = $request->input('password-profe');
 
-            DatosUsuario::create([
-                'id_usuario' => $user->id,
-                'id_tipo_cuenta' => 3,
-                'confirmacion_cuenta' => false,
-                'id_estatus' => 1
-            ]);
+            if (strlen($password) >= 8) {
+                $user->password = bcrypt($password);
+                $user->save();
 
-            Direccion::create([
-                'id_usuario' => $user->id
-            ]);
+                DatosUsuario::create([
+                    'id_usuario' => $user->id,
+                    'id_tipo_cuenta' => 3,
+                    'confirmacion_cuenta' => false,
+                    'id_estatus' => 1
+                ]);
 
-            Telefono::create([
-                'id_usuario' => $user->id
-            ]);
+                Direccion::create([
+                    'id_usuario' => $user->id
+                ]);
 
-            return redirect()->to('/admin');
+                Telefono::create([
+                    'id_usuario' => $user->id
+                ]);
+
+                $user->enviarCorreoConfirmacion();
+
+                return redirect()->to('/admin');
+            } else {
+                return redirect()->to('/admin')->with('errorProfe', 'La contraseña debe contener 8 o más caracteres');
+            }
         } else {
             return redirect()->to('/admin')->with('errorProfe', 'Este correo ya está registrado');
         }
