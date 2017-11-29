@@ -14,13 +14,13 @@ class PagoController extends Controller {
         $this->_apiContext = PayPal::ApiContext(
             //config('services.paypal.client_id'),
             //config('services.paypal.secret')
-            env('PAYPAL_CLIENT_ID'),
-            env('PAYPAL_SECRET')
+            env('PAYPAL_SANDBOX_CLIENT_ID'),
+            env('PAYPAL_SANDBOX_SECRET')
         );
 
         $this->_apiContext->setConfig(array(
-            'mode' => 'live',
-            'service.EndPoint' => 'https://api.paypal.com',
+            'mode' => 'sandbox', //Para producción 'live'
+            'service.EndPoint' => 'https://api.sandbox.paypal.com', //Para producción 'https://api.paypal.com'
             'http.ConnectionTimeOut' => 30,
             'log.LogEnabled' => true,
             'log.FileName' => storage_path('logs/paypal.log'),
