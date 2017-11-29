@@ -38,6 +38,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     Route::post('/guardar-usuario/{id}', 'UsuarioController@guardarUsuario');
     Route::get('/eliminar-usuario/{id}', 'UsuarioController@eliminarUsuario');
     Route::get('/recuperar-usuario/{id}', 'UsuarioController@recuperarUsuario');
+    Route::get('/reporte-pdf', 'UsuarioController@reportePDF');
 
     //Profesores
     Route::post('/registro-profesor', 'ProfesorController@registrarProfesor');

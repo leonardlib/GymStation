@@ -28,6 +28,9 @@
                             <button type="button" class="btn btn-success" style="cursor: pointer;" data-toggle="modal" data-target="#nuevo-usuario-modal">
                                 <i class="material-icons" style="vertical-align: middle;">add_circle</i> Agregar usuario
                             </button>
+                            <button type="button" class="btn btn-warning" style="cursor: pointer;" data-toggle="modal" data-target="#reporte-pdf">
+                                <i class="material-icons" style="vertical-align: middle;">exit_to_app</i> Reporte
+                            </button>
                             <br/>
                             <br/>
                             <div class="list-group">
@@ -101,6 +104,9 @@
 
     <!-- Modal agregar promoción -->
     @include('modales.promocion.nueva')
+
+    <!-- Modal reportes -->
+    @include('modales.reportesUsuario')
 
     <script type="text/javascript">
         $('#barra-perfil').parent().addClass('active');
@@ -176,6 +182,23 @@
             } else {
                 $('#alerta-info-promocion').css('display', 'none');
                 $('#form-nueva-promocion').submit();
+            }
+        });
+
+        $('#fecha-inicio-reporte').on('change', function () {
+            var fecha = $(this).val();
+            $('#fecha-fin-reporte').attr('min', fecha);
+        });
+
+        $('#btn-reporte-pdf').on('click', function () {
+            var fecha_inicial = $('#fecha-inicio-reporte').val();
+            var fecha_fin = $('#fecha-fin-reporte').val();
+
+            if (fecha_inicial != '' && fecha_fin != '') {
+                $('#alerta-info-reporte').css('display', 'none');
+                $('#form-reporte-pdf').submit();
+            } else {
+                $('#alerta-info-reporte').css('display', 'block');
             }
         });
     </script>
