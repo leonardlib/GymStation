@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Mail\Confirmacion;
+use App\Mail\ResetPassword;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -30,6 +31,16 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Send the password reset notification
+     * @param  string  $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token) {
+        //$this->notify(new ResetPasswordNotification($token));
+        Mail::to($this->email)->send(new ResetPassword($token, $this));
+    }
 
     //Email de confirmación
     public function enviarCorreoConfirmacion() {

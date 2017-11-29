@@ -31,7 +31,7 @@ class UsuarioController extends Controller {
     public function registrarUsuario(Request $request) {
         $validar = $request->validate([
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+            'password' => 'required|string|min:8|confirmed',
         ]);
 
         $user = new User();
