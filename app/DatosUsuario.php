@@ -39,6 +39,15 @@ class DatosUsuario extends Model {
                      ->withTrashed();
     }
 
+    //Funciones
+    public function nombreCompleto() {
+        if ($this->nombre && $this->apellido_paterno && $this->apellido_materno) {
+            return $this->nombre . ' ' . $this->apellido_paterno . ' ' . $this->apellido_materno;
+        } else {
+            return 'Sin nombre';
+        }
+    }
+
     //Relaciones
     public function usuario() {
         return $this->hasOne(User::class, 'id', 'id_usuario')->withTrashed();

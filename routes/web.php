@@ -38,7 +38,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     Route::post('/guardar-usuario/{id}', 'UsuarioController@guardarUsuario');
     Route::get('/eliminar-usuario/{id}', 'UsuarioController@eliminarUsuario');
     Route::get('/recuperar-usuario/{id}', 'UsuarioController@recuperarUsuario');
-    Route::get('/reporte-pdf', 'UsuarioController@reportePDF');
+    Route::post('/reporte-pdf', 'UsuarioController@reportePDF');
 
     //Profesores
     Route::post('/registro-profesor', 'ProfesorController@registrarProfesor');
@@ -53,6 +53,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     Route::post('/guardar-clase/{id}', 'ClaseController@guardarClase');
     Route::get('/eliminar-clase/{id}', 'ClaseController@eliminarClase');
     Route::get('/recuperar-clase/{id}', 'ClaseController@recuperarClase');
+    Route::get('/reporte-pdf-clase/{id}', 'ClaseController@reportePDF');
 
     //Promociones
     Route::post('/registro-promocion', 'PromocionController@registrarPromocion');

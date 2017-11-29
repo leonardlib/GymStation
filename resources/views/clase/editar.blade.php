@@ -12,6 +12,11 @@
                 @else
                     <form method="POST" action="{{ url('/admin/guardar-clase/' . $clase->id) }}">
                         {{ csrf_field() }}
+                        <div class="form-group">
+                            <a href="{{ url('/admin/reporte-pdf-clase/' . $clase->id) }}" class="btn btn-warning" style="cursor: pointer;">
+                                <i class="material-icons" style="vertical-align: middle;">exit_to_app</i> Reporte
+                            </a>
+                        </div>
                         <h5 class="text-primary">Datos</h5>
                         <div class="form-group">
                             <label for="nombre-clase">Nombre:</label>

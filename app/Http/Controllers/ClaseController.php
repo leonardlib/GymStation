@@ -7,7 +7,9 @@ use App\ClaseUsuarioInstructor;
 use App\Estatus;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
 
 class ClaseController extends Controller {
     /************************************ Funciones de Administrador sobre Clase **************************************/
@@ -143,5 +145,37 @@ class ClaseController extends Controller {
                 'success' => false
             ));
         }
+    }
+
+    public function reportePDF($idClase) {
+        $asistencias = ClaseUsuarioInstructor::with(['clase', 'usuario'])
+                                                ->where('id_clase', $idClase)
+                                                ->get();
+        $data = [];
+
+        foreach ($asistencias as $asistencia) {
+            $clase = $asistencia->clase->nombre;
+            $costo = $asistencia->clase->costo;
+            $pago = $asistencia->clase->pago_profesor;
+
+            $dato = [
+                'email' => $asistencia->usuario->email,
+                'nombre' => $asistencia->usuario->datosUsuario->nombreCompleto(),
+                'direccion' => $asistencia->usuario->direccion->direccionCompleta(),
+                'telefono' => ($asistencia->usuario->telefono->telefono) ? $asistencia->usuario->telefono->telefono : 'Sin teléfono',
+                'pagada' => ($asistencia->pagada) ? 'Pagada' : 'No pagada'
+            ];
+
+            array_push($data, $dato);
+        }
+
+        $view =  View::make('pdf.invoiceClase',
+            compact('data', 'clase', 'costo', 'pago')
+        )->render();
+
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->loadHTML($view);
+
+        return $pdf->stream('invoice');
     }
 }

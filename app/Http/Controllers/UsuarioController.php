@@ -9,7 +9,9 @@ use App\Pago;
 use App\Telefono;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
 
 class UsuarioController extends Controller {
     public function index() {
@@ -182,5 +184,37 @@ class UsuarioController extends Controller {
         session()->forget('registrado');
 
         return redirect()->to('/usuario');
+    }
+
+    public function reportePDF(Request $request) {
+        $fecha_inicio = $request->input('fecha-inicio-reporte');
+        $fecha_fin = $request->input('fecha-fin-reporte');
+
+        $usuarios = User::with(['datosUsuario', 'telefono', 'direccion'])
+                            ->whereBetween('created_at', [$fecha_inicio, $fecha_fin])
+                            ->get();
+        $data = [];
+
+        foreach ($usuarios as $usuario) {
+            $dato = [
+                'email' => $usuario->email,
+                'nombre' => $usuario->datosUsuario->nombreCompleto(),
+                'direccion' => $usuario->direccion->direccionCompleta(),
+                'telefono' => ($usuario->telefono->telefono) ? $usuario->telefono->telefono : 'Sin teléfono'
+            ];
+
+            array_push($data, $dato);
+        }
+
+        $view =  View::make('pdf.invoice',
+            compact(
+                'data', 'fecha_inicio', 'fecha_fin'
+            )
+        )->render();
+
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->loadHTML($view);
+
+        return $pdf->stream('invoice');
     }
 }
